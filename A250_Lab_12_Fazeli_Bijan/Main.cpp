@@ -20,7 +20,6 @@ void multiples(set<int>& set, int multiplicator);
 
 int main() 
 {
-
 	multiset<int> set1 = { 1, 2, 2, 3, 4, 4 };
 	multiset<int> set2 = { 1, 1, 2, 2, 2 };
 	multiset<int> set3 = { 3, 3, 3, 3, 3 };
@@ -32,6 +31,16 @@ int main()
 
 	multiset<int> multiArray [] = {
 		set1, set2, set3, set4, set5, set6, set7, set8
+	};
+
+	multimap<int, int> multiMapArray[] = {
+		{ {1,2}, {2,4}, {2,1}, {4,2}, {6,1}, {7,4} },
+		{ {1,2}, {2,4}, {2,1}, {4,2}, {6,1}, {7,4} },
+		{ {1,2}, {2,6}, {4,2}, {4,6}, {6,4} },
+		{ {2,4}, {2,3}, {4,6}, {4,7}, {6,5}, {6,2} },
+		{ {3,6}, {4,6}, {5,6}, {6,6} },
+		{ {3,3}, {3,3}, {3,3}, {3,3}, {3,4} },
+		{ {3,3}, {3,3}, {3,3}, {3,4}, {4,3} }
 	};
 
 	for (int i = 0; i < 8; i++) cout << countClumps(multiArray[i]) << endl;
@@ -75,7 +84,15 @@ int countClumps(const multiset<int>& mSet)
 
 	return index;
 }
-bool linearIn(const multimap<int, int>& map);
+
+bool linearIn(const multimap<int, int>& map)
+{
+	for (multimap<int, int>::const_iterator it = map.cbegin(), end = map.cend();
+		it != end;
+		++it)
+		if (map.find(it->second) == end) return false;
+	return true;
+}
 void multiples(set<int>& set, int multiplicator) 
 {
 	for (int i = 1, count = 0; count < 10; ++i)
@@ -84,5 +101,4 @@ void multiples(set<int>& set, int multiplicator)
 			set.insert(i*multiplicator);
 			++count;
 		}
-
 }
